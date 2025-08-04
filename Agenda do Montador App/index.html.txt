@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Montador de Móveis</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-tools"></i> App Montador de Móveis</h1>
+      <p class="subtitle">Sua agenda de montagens na palma da mão!</p>
+    </header>
+
+    <section class="calendar-section">
+        <h2><i class="fas fa-calendar-alt"></i> Visualização em Calendário</h2>
+        <div id="calendar"></div>
+    </section>
+
+    <hr>
+
+    <section class="form-section">
+      <h2><i class="fas fa-calendar-plus"></i> Novo Agendamento</h2>
+      <form id="schedule-form">
+        <input type="hidden" id="schedule-id" value="">
+
+        <div class="form-group">
+          <label for="client-name"><i class="fas fa-user"></i> Nome do Cliente:</label>
+          <input type="text" id="client-name" placeholder="Ex: Maria Silva" required />
+        </div>
+        <div class="form-group">
+          <label for="client-phone"><i class="fas fa-phone"></i> Telefone:</label>
+          <input type="tel" id="client-phone" placeholder="Ex: (XX) XXXXX-XXXX" />
+        </div>
+        <div class="form-group">
+          <label for="client-address"><i class="fas fa-map-marker-alt"></i> Endereço:</label>
+          <input type="text" id="client-address" placeholder="Ex: Rua das Flores, 123" required />
+        </div>
+        <div class="form-group">
+          <label for="schedule-date"><i class="fas fa-calendar-alt"></i> Data:</label>
+          <input type="date" id="schedule-date" required />
+        </div>
+        <div class="form-group">
+          <label for="schedule-time"><i class="fas fa-clock"></i> Hora:</label>
+          <input type="time" id="schedule-time" required />
+        </div>
+        <div class="form-group">
+          <label for="service-type"><i class="fas fa-wrench"></i> Tipo de Serviço:</label>
+          <select id="service-type" required>
+            <option value="">Selecione o Tipo</option>
+            <option value="Montagem">Montagem</option>
+            <option value="Desmontagem">Desmontagem</option>
+            <option value="Remontagem">Remontagem</option>
+            <option value="Reparo">Reparo</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+        <div class="services-section">
+          <h3><i class="fas fa-couch"></i> Detalhes dos Móveis</h3>
+          <div id="furniture-details-container"></div>
+          <button type="button" id="add-furniture-btn" class="add-button"><i class="fas fa-plus-circle"></i> Adicionar Móvel</button>
+        </div>
+        <div class="form-group">
+          <label for="total-value"><i class="fas fa-dollar-sign"></i> Valor Total (R$):</label>
+          <input type="number" id="total-value" step="0.01" placeholder="Ex: 150.00" />
+        </div>
+        <div class="form-group">
+          <label for="notes"><i class="fas fa-sticky-note"></i> Observações:</label>
+          <textarea id="notes" rows="3" placeholder="Detalhes adicionais sobre o serviço..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="submit-btn"><i class="fas fa-save"></i> Salvar Agendamento</button>
+          <button type="button" id="clear-form-btn" class="clear-btn"><i class="fas fa-eraser"></i> Limpar Formulário</button>
+        </div>
+      </form>
+    </section>
+
+    <hr>
+
+    <section class="schedule-list-section">
+      <h2><i class="fas fa-clipboard-list"></i> Próximos Agendamentos (Lista)</h2>
+      <div class="list-controls">
+        <input type="text" id="search-input" placeholder="Buscar por cliente..." />
+        <select id="filter-service-type">
+          <option value="">Todos os Serviços</option>
+          <option value="Montagem">Montagem</option>
+          <option value="Desmontagem">Desmontagem</option>
+          <option value="Remontagem">Remontagem</option>
+          <option value="Reparo">Reparo</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+      <div id="schedule-count" class="schedule-count"></div>
+      <ul id="schedule-list"></ul>
+      <div id="no-schedules-message" class="no-schedules">
+        <p><i class="fas fa-calendar-check"></i> Nenhum agendamento cadastrado ainda.</p>
+        <p>Use o formulário acima para adicionar um novo serviço!</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

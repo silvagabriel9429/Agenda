@@ -1,0 +1,45 @@
+document.addEventListener('DOMContentLoaded', function() {
+  const calendarEl = document.getElementById('calendar');
+
+  // Carrega os agendamentos do localStorage
+  const schedules = JSON.parse(localStorage.getItem('montadorSchedules')) || [];
+
+  // Mapeia os dados para o formato que o FullCalendar entende
+  const calendarEvents = schedules.map(schedule => {
+    return {
+      id: schedule.id,
+      title: schedule.clientName, // O que aparece no "título" do evento
+      start: `${schedule.date}T${schedule.time}`, // Data e hora de início
+      extendedProps: { // Guarda todos os outros dados aqui
+        ...schedule
+      }
+    };
+  });
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    locale: 'pt-br',
+    initialView: 'dayGridMonth',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,listWeek'
+    },
+    events: calendarEvents,
+    
+    // Ação ao clicar em um evento do calendário
+    eventClick: function(info) {
+      // Pega o ID do agendamento clicado
+      const scheduleId = info.event.id;
+      // Redireciona para a página de formulário, passando o ID na URL
+      window.location.href = `form.html?id=${scheduleId}`;
+    },
+
+    // Mostra mais detalhes ao passar o mouse (opcional, mas útil)
+    eventMouseEnter: function(info) {
+        const props = info.event.extendedProps;
+        info.el.title = `Cliente: ${props.clientName}\nEndereço: ${props.clientAddress}\nServiço: ${props.serviceType}`;
+    }
+  });
+
+  calendar.render();
+});
